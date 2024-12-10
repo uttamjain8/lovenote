@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Love Notes</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8f0e3;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    #container {
+      display: flex;
+      width: 90%;
+      height: 80%;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    #note-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff5f0;
+      padding: 20px;
+    }
+
+    .heart-card {
+      display: inline-block;
+      width: 300px;
+      height: 280px;
+      background-color: #ff6f61;
+      clip-path: path('M150 15 C95 -30 -5 45 150 250 C305 45 205 -30 150 15 Z');
+      color: white;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #youtube-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <div id="note-container">
+      <div class="heart-card" id="love-note">Loading...</div>
+    </div>
+    <div id="youtube-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=N8Q-pJaNiqv86OZj&amp;list=PLjp0AEEJ0-fGZh71ofpWYKKH1SVviA5-h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    const notes = [
+      "You make my heart skip a beat!",
+      "Every day with you is a dream come true.",
+      "Your smile lights up my world!",
+      "I love you more with each passing day."
+    ];
+
+    function getDailyIndex() {
+      const startDate = new Date("2024-01-01"); // Set a start date
+      const today = new Date();
+      const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+      return diff % notes.length;
+    }
+
+    function updateNote() {
+      const dailyIndex = getDailyIndex();
+      const note = notes[dailyIndex];
+      document.getElementById("love-note").textContent = note;
+    }
+
+    window.onload = updateNote;
+  </script>
+</body>
+</html>
