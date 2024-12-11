@@ -7,7 +7,6 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,32 +23,50 @@
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       overflow: hidden;
+      animation: float 4s ease-in-out infinite;
     }
 
     #note-container {
       flex: 1;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       background-color: #fff5f0;
-      padding: 20px;
+      position: relative;
     }
 
     .heart-card {
-      display: inline-block;
       width: 300px;
       height: 280px;
       background-color: #ff6f61;
-      clip-path: path('M150 15 C95 -30 -5 45 150 250 C305 45 205 -30 150 15 Z');
-      color: white;
-      font-size: 1.2rem;
-      line-height: 1.5;
+      clip-path: path("M150,40 C80,-50 -50,120 150,280 C350,120 220,-50 150,40 Z");
+	  /* path("M150,30 C90,-20 0,90 150,260 C300,90 210,-20 150,30 Z"); */
+	  
+	  
+      position: relative;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .heart-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .love-note {
       text-align: center;
-      padding: 20px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1.2rem;
+      color: #333;
+      padding: 10px;
+      line-height: 1.4;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     #youtube-container {
@@ -65,41 +82,76 @@
       height: 100%;
       border: none;
     }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(-10px);
+      }
+      50% {
+        transform: translateY(10px);
+      }
+    }
   </style>
 </head>
 <body>
 
   <div id="container">
     <div id="note-container">
-      <div class="heart-card" id="love-note">Loading...</div>
+      <div class="heart-card" id="heart-image">
+        <img id="daily-image" src="" alt="Daily Image">
+      </div>
+      <div class="love-note" id="love-note">Loading...</div>
     </div>
     <div id="youtube-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=N8Q-pJaNiqv86OZj&amp;list=PLjp0AEEJ0-fGZh71ofpWYKKH1SVviA5-h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe 
+        id="yt-player" 
+        src="https://www.youtube.com/embed/videoseries?list=PLDIoUOhQQPlXzhp-83rECoLaV6BwFtNC4&autoplay=1" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 
   <script>
-    const notes = [
-      "You make my heart skip a beat!",
-      "Every day with you is a dream come true.",
-      "Your smile lights up my world!",
-      "I love you more with each passing day."
+    const notesAndImages = [
+      {
+        note: "You make my heart skip a beat!",
+        image: "https://c1.wallpaperflare.com/preview/190/67/674/affection-afterglow-backlit-blur.jpg?text=Day+1"
+      },
+      {
+        note: "Every day with you is a dream come true.",
+        image: "https://via.placeholder.com/300x280.png?text=Day+2"
+      },
+      {
+        note: "Your smile lights up my world!",
+        image: "https://via.placeholder.com/300x280.png?text=Day+3"
+      },
+      {
+        note: "I love you more with each passing day.",
+        image: "https://via.placeholder.com/300x280.png?text=Day+4"
+      },
+      {
+        note: "Together, we can conquer anything!",
+        image: "https://via.placeholder.com/300x280.png?text=Day+5"
+      }
     ];
 
     function getDailyIndex() {
       const startDate = new Date("2024-01-01"); // Set a start date
       const today = new Date();
       const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-      return diff % notes.length;
+      return diff % notesAndImages.length;
     }
 
-    function updateNote() {
+    function updateContent() {
       const dailyIndex = getDailyIndex();
-      const note = notes[dailyIndex];
+      const { note, image } = notesAndImages[dailyIndex];
+
       document.getElementById("love-note").textContent = note;
+      document.getElementById("daily-image").src = image;
     }
 
-    window.onload = updateNote;
+    window.onload = updateContent;
   </script>
 </body>
 </html>
