@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
   <title>Daily Love Notes</title>
   <style>
     body {
@@ -580,9 +581,34 @@
 {note: "In you, I have found my forever, and I can't wait for our future.", image: "https://c1.wallpaperflare.com/preview/190/67/674/affection-afterglow-backlit-blur.jpg?text=Our Photos" }
 
     ];
+	
+	function getDailyIndex() {
+  const startDate = new Date(Date.UTC(2024, 11, 8)); // UTC Start Date
+  const today = new Date();
+  const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+  const diff = Math.floor((todayUTC - startDate) / (1000 * 60 * 60 * 24));
+  return diff % notesAndImages.length;
+}
+
+function updateContent() {
+  const dailyIndex = getDailyIndex();
+  const { note, image } = notesAndImages[dailyIndex];
+
+  document.getElementById("love-note").textContent = note;
+  document.getElementById("daily-image").src = image;
+}
+
+document.addEventListener("DOMContentLoaded", updateContent);
+
+	
+	
+	
+	
+	
+	//
 
     function getDailyIndex() {
-      const startDate = new Date("2024-12-12"); // Set a start date
+      const startDate = new Date("2024-12-11"); // Set a start date
       const today = new Date();
       const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
       return diff % notesAndImages.length;
@@ -595,8 +621,10 @@
       document.getElementById("love-note").textContent = note;
       document.getElementById("daily-image").src = image;
     }
-document.addEventListener("DOMContentLoaded", updateContent);
-   // window.onload = updateContent;
+	
+	document.addEventListener("DOMContentLoaded", updateContent);
+
+    // window.onload = updateContent;
   </script>
 </body>
 </html>
